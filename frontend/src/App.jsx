@@ -10,6 +10,7 @@ import Product from "./pages/Product"; // 추가
 import Cart from "./pages/Cart"; // 추가
 import Login from "./pages/Login"; // 추가
 import PlaceOrder from "./pages/PlaceOrder"; // 추가
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/placeorder" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
