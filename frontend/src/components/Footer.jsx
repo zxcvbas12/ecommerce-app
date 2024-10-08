@@ -31,6 +31,12 @@ const Footer = () => {
           </ul>
         </div>
       </div>
+      <div>
+        <hr />
+        <p className="py-5 text-sm text-center ">
+          Copyright 2024@ e-commerce.com - ALL Right Reserved.
+        </p>
+      </div>
     </div>
   );
 };
