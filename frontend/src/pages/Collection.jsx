@@ -3,7 +3,6 @@ import { ShopContext } from "../context/shopContext";
 import { assets } from "../assets/assets";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
-import { Link } from "react-router-dom";
 
 // const ProductList = ({ filterProducts }) => {
 //   return (
