@@ -12,11 +12,12 @@ import Login from "./pages/Login"; // 추가
 import PlaceOrder from "./pages/PlaceOrder"; // 추가
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
-import ShopContextProvider from "./context/shopContext";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+      <ToastContainer />
       <Navbar />
       <SearchBar />
       <Routes>
