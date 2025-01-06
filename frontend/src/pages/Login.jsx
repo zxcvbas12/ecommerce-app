@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -33,12 +34,21 @@ const Login = () => {
         placeholder="Email"
         required
       />
-      <input
-        type="password"
-        className="w-full px-3 py-2 border border-gray-800"
-        placeholder="Password"
-        required
-      />
+      <div className="relative w-full">
+        <input
+          type={showPassword ? "text" : "password"}
+          className="w-full px-3 py-2 border border-gray-800"
+          placeholder="Password"
+          required
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
+        >
+          {showPassword ? "Hide" : "Show"}
+        </button>
+      </div>
       <div className="w-full flex justify-between text-sm mt-[-8px]">
         <p className="cursor-pointer">Forgot your password?</p>
         {currentState === "Login" ? (
@@ -57,7 +67,7 @@ const Login = () => {
           </p>
         )}
       </div>
-      <button className="bg-black text-white font-light px-8 py-2 mt-4">
+      <button className="bg-black text-white font-light px-8 py-2 mt-4 hover:bg-gray-800">
         {currentState === "Login" ? "Sign In" : "Sign Up"}
       </button>
     </form>
