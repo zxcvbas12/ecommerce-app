@@ -55,6 +55,31 @@ const PlaceOrder = () => {
         }
       }
       console.log(orderItems);
+
+      let orderData = {
+        address: formData,
+        items: orderItems,
+        amount: getCartAmount() + delivery_fee,
+      };
+      switch (method) {
+        // api call for cod
+        case "cod":
+          const response = await axios.post(
+            backendUrl + "/api/order/place",
+            orderData,
+            { headers: { token } }
+          );
+          if (response.data.success) {
+            setCartItems({});
+            navigate("/orders");
+          } else {
+            toast.error(response.data.message);
+          }
+          break;
+
+        default:
+          break;
+      }
     } catch (error) {
       console.error("주문 처리 중 오류 발생:", error);
     }
