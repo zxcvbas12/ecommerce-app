@@ -2,7 +2,9 @@ import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { assets } from "../assets/assets";
-import { ShopContext } from "../context/ShopContext";
+import { ShopContext } from "../context/shopContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
@@ -15,7 +17,9 @@ const PlaceOrder = () => {
     getCartAmount,
     delivery_fee,
     products,
+    userId,
   } = useContext(ShopContext);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -55,34 +59,46 @@ const PlaceOrder = () => {
         }
       }
       console.log(orderItems);
+      console.log("userId:", userId);
+      console.log("orderItems:", orderItems);
+      console.log("backendUrl:", backendUrl);
+      console.log("token:", token);
+      console.log("cartItems:", cartItems);
+      console.log("products:", products);
 
       let orderData = {
+        userId,
         address: formData,
         items: orderItems,
         amount: getCartAmount() + delivery_fee,
       };
+
       switch (method) {
-        // api call for cod
-        case "cod":
-          const response = await axios.post(
-            backendUrl + "/api/order/place",
-            orderData,
-            { headers: { token } }
-          );
-          if (response.data.success) {
-            setCartItems({});
-            navigate("/orders");
-          } else {
-            toast.error(response.data.message);
+        case "cod": {
+          try {
+            const response = await axios.post(
+              backendUrl + "/api/order/place",
+              orderData,
+              { headers: { token } }
+            );
+
+            if (response.data.success) {
+              setCartItems({});
+              navigate("/orders");
+            } else {
+              toast.error(response.data.message);
+            }
+          } catch (error) {
+            console.error("Order placement failed:", error);
+            toast.error("Failed to place order.");
           }
           break;
+        }
 
         default:
           break;
       }
-    } catch (error) {
-      console.error("주문 처리 중 오류 발생:", error);
-    }
+    } catch (error) {}
   };
 
   return (

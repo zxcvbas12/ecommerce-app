@@ -22,7 +22,7 @@ const placeOrder = async (req, res) => {
     res.json({ success: true, message: "Order Placed" });
   } catch (error) {
     console.log(error);
-    res.json({ successs: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
