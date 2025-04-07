@@ -4,6 +4,12 @@ import orderModel from "../models/orderModel.js";
 const placeOrder = async (req, res) => {
   try {
     const { userId, items, amount, address } = req.body;
+    //check data validation
+    // if (!userId || !items || !amount || !address) {
+    //   return res
+    //     .status(400)
+    //     .json({ success: false, message: "Missing required fields" });
+    // }
 
     const orderData = {
       userId,
@@ -19,6 +25,10 @@ const placeOrder = async (req, res) => {
     await newOrder.save();
 
     await userModel.findByIdAndUpdate(userId, { cardData: {} });
+
+    // just in case
+    //await userModel.findByIdAndUpdate(userId, { cartItems: {} });
+
     res.json({ success: true, message: "Order Placed" });
   } catch (error) {
     console.log(error);

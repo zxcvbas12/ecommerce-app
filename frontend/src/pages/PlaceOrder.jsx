@@ -17,7 +17,6 @@ const PlaceOrder = () => {
     getCartAmount,
     delivery_fee,
     products,
-    userId,
   } = useContext(ShopContext);
 
   const [formData, setFormData] = useState({
@@ -58,8 +57,7 @@ const PlaceOrder = () => {
           }
         }
       }
-      console.log(orderItems);
-      console.log("userId:", userId);
+      console.log("orderData:", orderData);
       console.log("orderItems:", orderItems);
       console.log("backendUrl:", backendUrl);
       console.log("token:", token);
@@ -67,7 +65,6 @@ const PlaceOrder = () => {
       console.log("products:", products);
 
       let orderData = {
-        userId,
         address: formData,
         items: orderItems,
         amount: getCartAmount() + delivery_fee,
@@ -81,6 +78,7 @@ const PlaceOrder = () => {
               orderData,
               { headers: { token } }
             );
+            console.log(response.data);
 
             if (response.data.success) {
               setCartItems({});
